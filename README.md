@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# OpsCentral — User Operations Dashboard
+
+A user management dashboard built with Next.js App Router, featuring user listing, detailed profiles, and activity signals derived from posts and todos.
+
+## Tech Stack
+
+- **Next.js 16** (App Router) + **TypeScript**
+- **Tailwind CSS v4**
+- **TanStack React Query v5** — client-side data fetching
+- **Jest + React Testing Library** — unit tests
+- **API**: [JSONPlaceholder](https://jsonplaceholder.typicode.com)
+
+## Features
+
+- `/users` — paginated user list with search, sort, and filter
+  - Search by name or email
+  - Sort by name A–Z / Z–A, most posts, most pending todos
+  - Filter: all users, has pending todos, no completed todos
+  - Activity signals per user: total posts, completed todos, pending todos
+  - Filter state persisted in URL params (survives navigation)
+  - Responsive: table on desktop, cards on mobile
+- `/users/[id]` — user detail page
+  - Contact info, company, and address
+  - Stat cards: total posts, completed todos, pending todos
+  - Tabs: Posts and Assigned Tasks (todos)
+  - Todo filter: all, completed, pending
+- Loading skeletons, empty states, error states, and 404 pages
+- ISR: server-side data cached with 60s revalidation
+- Error Boundary via `error.tsx` for graceful failure recovery
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) — redirects to `/users`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Running Tests
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm test
+```
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+45 tests across 4 suites covering: user list rendering, search/filter/sort, loading/error/empty states, user detail view, tabs, and error boundary components.
